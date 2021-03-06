@@ -24,6 +24,6 @@ export default {
   background-image: url("../assets/images/arrow.png");
 }
 .arrow-down {
-  background-image: url("../assets/images/arrow.png");
+  background-image: url("../assets/images/arrow_down.png");
 }
 </style>

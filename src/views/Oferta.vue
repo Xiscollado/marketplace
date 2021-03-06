@@ -67,7 +67,6 @@ export default {
           show: true
         })
         // TODO enviar a BBDD {name: this.name, quantity: this.quantity, price: this.price}
-        // TODO await this.$store.dispatch("ADD_ITEM", item)
         await this.$router.push({name: "Home"})
       }
     },

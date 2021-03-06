@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app pb-16">
     <spinner/>
     <notification/>
     <title-component class="pt-16 px-48"/>
