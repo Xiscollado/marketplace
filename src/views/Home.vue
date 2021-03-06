@@ -19,6 +19,20 @@ export default {
   name: 'Home',
   components: {searchComponent, menuComponent, items, itemsHeader},
   computed:
-    mapState(["items"])
+    mapState(["items"]),
+  async created() {
+    //TODO ELIMINAR, pedirlos a la BBDD
+    let items = [
+      {id: 1, name: "clavos", icon: "nail", owner: "Dakota Jack", price: 3, quantity: 10, ownerId: "ABC"},
+      {id: 2, name: "clavos", icon: "nail", owner: "Silvestre Dalton", price: 3, quantity: 10, ownerId: "EFG"},
+      {id: 3, name: "Puro", icon: "puro", owner: "Silvestre Dalton", price: 1, quantity: 20, ownerId: "EFG"},
+      {id: 4, name: "Estandarte de campamento", icon: "flag", owner: "Kimberlee Cat", price: 1, quantity: 20, ownerId: "GTF"},
+    ]
+    //TODO ELIMINAR, pedirlos a la BBDD
+    await this.$store.dispatch("SET_ITEMS", items) //TODO LLAMAR DESDE RDR, eliminar
+  },
+  mounted() {
+    this.$store.dispatch("SET_LOADING", false)
+  }
 }
 </script>

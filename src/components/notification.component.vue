@@ -1,13 +1,15 @@
 <template>
-  <div class="notification flex flex-row">
-    <div class="symbol">
-      <img v-if="$store.state.notification.type === 'ok'" src="../assets/images/notification_OK.png" alt="OK">
-      <img v-if="$store.state.notification.type === 'ko'" src="../assets/images/notification_KO.png" alt="KO">
+  <transition name="bounce">
+    <div class="notification flex flex-row" v-show="$store.state.notification.show">
+      <div class="symbol">
+        <img v-if="$store.state.notification.type === 'ok'" src="../assets/images/notification_OK.png" alt="OK">
+        <img v-if="$store.state.notification.type === 'ko'" src="../assets/images/notification_KO.png" alt="KO">
+      </div>
+      <div class="message font-bold text-lg">
+        {{ $store.state.notification.message }}
+      </div>
     </div>
-    <div class="message font-bold text-lg">
-      {{ $store.state.notification.message }}
-    </div>
-  </div>
+  </transition>
 </template>
 <script>
 export default {
@@ -22,8 +24,8 @@ export default {
   padding: 20px 30px;
 }
 .notification {
-  position: absolute;
-  bottom:20px;
+  position: fixed;
+  top:20px;
   left:20px;
 }
 </style>

@@ -10,7 +10,7 @@ export default {
   props: ["name"],
   methods: {
     sort(type) {
-      this.$store.dispatch("SET_SORT", this.name, type)
+      this.$store.dispatch("SET_SORT", {name: this.name, type})
     },
   }
 }
@@ -25,6 +25,5 @@ export default {
 }
 .arrow-down {
   background-image: url("../assets/images/arrow.png");
-  transform: rotate(180deg);
 }
 </style>

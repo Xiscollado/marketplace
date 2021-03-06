@@ -4,33 +4,38 @@
       <div class="start-bg item-search"/>
       <label class="flex-grow">
         <input class="item-search focus:outline-none text-white flex-grow" type="text" placeholder="Busque mercancía..."
-               v-model="item">
+               v-model="query">
       </label>
       <div class="end-bg item-search"/>
     </div>
-  <button-component class="ml-1" @click.native="searchItem">Buscar</button-component>
-  <button-component class="ml-4" @click.native="clearSearch">Limpiar búsqueda</button-component>
+    <button-component class="ml-1" @click.native="searchItem">Buscar</button-component>
+    <button-component class="ml-4" @click.native="clearSearch">Limpiar búsqueda</button-component>
   </div>
 </template>
 <script>
 import buttonComponent from "@/components/button.component";
+
 export default {
   name: "search",
   data() {
     return {
-      item: ""
+      query: ""
     }
   },
   methods: {
-    searchItem() {
-      this.$store.dispatch("SET_SEARCH_FILTER", this.item);
+    async searchItem() {
+      await this.$store.dispatch("SET_LOADING", true);
+      await this.$store.dispatch("SET_SEARCH_FILTER", this.query);
+      await this.$store.dispatch("SET_LOADING", false);
     },
-    clearSearch() {
-      this.item = "";
-      this.$store.dispatch("SET_SEARCH_FILTER", "");
+    async clearSearch() {
+      await this.$store.dispatch("SET_LOADING", true);
+      this.query = "";
+      await this.$store.dispatch("SET_SEARCH_FILTER", "");
+      await this.$store.dispatch("SET_LOADING", false);
     }
   },
-  components: { buttonComponent }
+  components: {buttonComponent}
 }
 </script>
 <style lang="scss" scoped>

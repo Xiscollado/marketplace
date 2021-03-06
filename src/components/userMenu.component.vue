@@ -11,18 +11,22 @@ export default {
   name: "user-menu",
   components: { buttonComponent },
   methods: {
-    myOffers() {
-      // Filtra los items por el usuario
-      this.$store.dispatch("TOGGLE_FILTER_USER_OFFERS");
+    async myOffers() {
+      await this.$store.dispatch("SET_LOADING", true);
+      await this.$store.dispatch("TOGGLE_FILTER_USER_OFFERS");
+      await this.$store.dispatch("SET_LOADING", false);
     },
-    createOffer() {
+    async createOffer() {
+      await this.$store.dispatch("SET_LOADING", true);
       // Abre el formulario para crear una oferta
-      console.log("crear una oferta")
+      await this.$router.push({name: "Oferta"});
     },
-    refreshOffers() {
+    async refreshOffers() {
+      await this.$store.dispatch("SET_LOADING", true);
       // Hace una petición a la base de datos para refrescar la tabla
-      this.$store.dispatch("DISABLE_ALL_FILTERS");
+      await this.$store.dispatch("DISABLE_ALL_FILTERS");
       //TODO refrescar ofertas de la base de datos. Debería de cachearse el resultado para evitar spamear la BBDD
+      await this.$store.dispatch("SET_LOADING", false);
     }
   },
   computed: {
