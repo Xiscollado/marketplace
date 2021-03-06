@@ -8,7 +8,8 @@
       </label>
       <div class="end-bg item-search"/>
     </div>
-  <button-component class="ml-1" style="height: 100%" @click.native="searchItem">Buscar</button-component>
+  <button-component class="ml-1" @click.native="searchItem">Buscar</button-component>
+  <button-component class="ml-4" @click.native="clearSearch">Limpiar búsqueda</button-component>
   </div>
 </template>
 <script>
@@ -22,7 +23,11 @@ export default {
   },
   methods: {
     searchItem() {
-      console.log("enviar a RDR el item a buscar");
+      this.$store.dispatch("SET_SEARCH_FILTER", this.item);
+    },
+    clearSearch() {
+      this.item = "";
+      this.$store.dispatch("SET_SEARCH_FILTER", "");
     }
   },
   components: { buttonComponent }
