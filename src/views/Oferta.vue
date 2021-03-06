@@ -8,7 +8,7 @@
         <p>Seleccione un artículo de su inventario</p>
         <select v-model="name" class="w-full">
           <option value="0">Seleccione un artículo de su inventario</option>
-          <option v-for="item in items" :value="item.name" :key="item.label">{{ item.label }} ({{ item.qty }})</option>
+          <option v-for="item in items" :value="item.name" :key="item.label">{{ item.label }} ({{ item.quantity }})</option>
         </select>
       </label>
       <div class="numbers flex flex-row">
@@ -49,22 +49,31 @@ export default {
       let item = this.items.find(i => {
         return this.name === i.name
       });
-      if (this.name === "0" || this.quantity > item.qty || this.quantity < 1 || this.price <= 0) {
+
+      if (this.name === "0" || this.quantity > item.quantity || this.quantity < 1 || this.price <= 0) {
         await this.$store.dispatch("SET_LOADING", false);
         let message = "Ha habido un error al vender, inténtalo de nuevo";
 
-        if (this.name === "0") message = "Tiene que poner a la venta algún artículo"
-        if (this.quantity > item.qty) message = "No tienes tantos artículos en tu inventario, prueba a vender menos"
-        if (this.quantity < 1) message = "Tiene que vender por lo menos un artículo"
+        if (item && this.quantity > item.quantity) message = "No tienes tantos artículos en tu inventario, prueba a vender menos"
+        if (item && this.quantity < 1) message = "Tiene que vender por lo menos un artículo"
         if (this.price <= 0) message = "Tiene que poner un precio a su artículo"
+        if (this.name === "0") message = "Tiene que poner a la venta algún artículo"
 
-        await this.$store.dispatch("SET_NOTIFICATION", {type:"ko", message, show:true})
+        await this.$store.dispatch("SET_NOTIFICATION", {type: "ko", message, show: true})
       } else {
-        await this.$store.dispatch("SET_NOTIFICATION", {type:"ok", message:"Su artículo se ha puesto en venta con éxito", show:true})
+        await this.$store.dispatch("SET_NOTIFICATION", {
+          type: "ok",
+          message: "Su artículo se ha puesto en venta con éxito",
+          show: true
+        })
         // TODO enviar a BBDD {name: this.name, quantity: this.quantity, price: this.price}
         // TODO await this.$store.dispatch("ADD_ITEM", item)
         await this.$router.push({name: "Home"})
       }
+    },
+    async cancel() {
+      await this.$store.dispatch("SET_LOADING", true);
+      await this.$router.push({name: "Home"})
     }
   },
   computed:

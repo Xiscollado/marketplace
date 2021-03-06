@@ -2,7 +2,7 @@
   <div class="item flex flex-row">
     <div class="item-table flex flex-row items-center h-20 text-xl w-full">
       <div class="item-field item-icon text-white w-1/12">
-        <img :src="icon" :alt="item.name">
+        <img :src="icon">
       </div>
       <div class="item-field item-name text-white w-3/12">
         {{ item.name }}

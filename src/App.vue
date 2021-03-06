@@ -19,8 +19,8 @@ export default {
     //TODO eliminar
     let user = {
       name: "Dakota Jack", id: "ABC", inventory: [
-        {name: "clavos", label: "clavos", qty: 5},
-        {name: "puros", label: "puros", qty: 2},
+        {name: "clavos", label: "clavos", quantity: 5},
+        {name: "puros", label: "puros", quantity: 2},
       ]
     };
     //TODO eliminar
